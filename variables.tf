@@ -14,7 +14,7 @@ variable "proxmox_api_token" {
 variable "proxmox_node" {
   type        = string
   description = "Name of the Proxmox node to deploy resources on"
-  default     = "pve"
+  default     = "proxmoxtest"
 }
 
 # ─── SSH ───────────────────────────────────────────────────────────────────────
