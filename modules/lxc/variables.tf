@@ -57,6 +57,6 @@ variable "datastore_id" {
 
 variable "unprivileged" {
   type        = bool
-  description = "Run as unprivileged container. Set to false for Docker support."
-  default     = false
+  description = "Run as unprivileged container. Unprivileged + nesting=true supports Docker on modern Proxmox."
+  default     = true
 }
