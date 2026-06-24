@@ -1,0 +1,64 @@
+---
+# Prepares Windows Server VMs for CyberArk component installation.
+# Run this after Windows Server is installed and WinRM is enabled on both VMs.
+#
+# WinRM setup (run once in PowerShell on each VM):
+#   winrm quickconfig -q
+#   winrm set winrm/config/service/auth '@{Basic="true"}'
+#   winrm set winrm/config/service '@{AllowUnencrypted="true"}'
+
+- name: Prepare all CyberArk hosts
+  hosts: cyberark
+  gather_facts: true
+
+  tasks:
+    - name: Set timezone to UTC
+      ansible.windows.win_timezone:
+        timezone: UTC
+
+    - name: Disable Windows Firewall (lab only — re-enable and configure for production)
+      ansible.windows.win_firewall:
+        state: disabled
+        profiles:
+          - Domain
+          - Private
+          - Public
+
+    - name: Install .NET Framework 4.8
+      ansible.windows.win_feature:
+        name: NET-Framework-45-Core
+        state: present
+      register: dotnet_install
+
+    - name: Reboot if .NET installation requires it
+      ansible.windows.win_reboot:
+      when: dotnet_install.reboot_required
+
+- name: Prepare PVWA host (IIS required)
+  hosts: ca-pvwa
+  gather_facts: false
+
+  tasks:
+    - name: Install IIS with required features for PVWA
+      ansible.windows.win_feature:
+        name:
+          - Web-Server
+          - Web-WebSockets
+          - Web-ASP-Net45
+          - Web-Net-Ext45
+          - Web-ISAPI-Ext
+          - Web-ISAPI-Filter
+          - Web-Mgmt-Tools
+        state: present
+        include_management_tools: true
+      register: iis_install
+
+    - name: Reboot if IIS installation requires it
+      ansible.windows.win_reboot:
+      when: iis_install.reboot_required
+
+    - name: Ensure IIS service is running
+      ansible.windows.win_service:
+        name: W3SVC
+        state: started
+        start_mode: auto

@@ -1,0 +1,13 @@
+---
+# Standalone hardening playbook — can be run against any Linux host group.
+# Usage:
+#   ansible-playbook playbooks/harden.yml               # all Linux hosts
+#   ansible-playbook playbooks/harden.yml --limit obs01  # single host
+
+- name: Harden Linux hosts
+  hosts: linux
+  become: true
+
+  roles:
+    - role: ssh-hardening
+    - role: firewall

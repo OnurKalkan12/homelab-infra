@@ -1,0 +1,15 @@
+# One-time network setup — apply this first, never destroy it.
+# Creates vmbr1 (VLAN-aware internal bridge) on the Proxmox host.
+#
+# Usage:
+#   terraform apply -var-file="envs/network.tfvars"
+#   (do not run terraform destroy against this file)
+
+proxmox_endpoint  = "https://YOUR_PROXMOX_IP:8006/"
+proxmox_api_token = "terraform@pve!homelab=PASTE_TOKEN_SECRET_HERE"
+proxmox_node      = "pve"
+
+# Unused by the network module but required by root variables.tf
+ssh_public_key       = "ssh-rsa AAAAB3..."
+create_observability = false
+create_cyberark      = false

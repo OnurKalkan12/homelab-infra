@@ -1,0 +1,44 @@
+# Copy this file to hosts.yml and fill in real IPs after terraform apply.
+# hosts.yml is gitignored — this example file is what gets committed.
+#
+# Get the IP from Terraform output:
+#   terraform output observability_ip
+
+all:
+  children:
+
+    # ── Linux hosts ────────────────────────────────────────────────────────────
+    linux:
+      children:
+
+        observability:
+          hosts:
+            obs01:
+              ansible_host: 192.168.30.10   # replace with terraform output value
+
+    # ── Windows hosts (CyberArk) ───────────────────────────────────────────────
+    # Ansible connects to Windows via WinRM, not SSH.
+    # WinRM must be enabled on each VM after Windows Server is installed.
+    # Run this in PowerShell on each CyberArk VM to enable WinRM:
+    #   winrm quickconfig -q
+    #   winrm set winrm/config/service/auth '@{Basic="true"}'
+    #   winrm set winrm/config/service '@{AllowUnencrypted="true"}'
+    cyberark:
+      hosts:
+        ca-vault:
+          ansible_host: 192.168.40.10
+          ansible_user: Administrator
+          ansible_password: "{{ vault_windows_password }}"   # stored in ansible-vault
+          ansible_connection: winrm
+          ansible_winrm_transport: basic
+          ansible_port: 5985
+          ansible_winrm_server_cert_validation: ignore
+
+        ca-pvwa:
+          ansible_host: 192.168.40.11
+          ansible_user: Administrator
+          ansible_password: "{{ vault_windows_password }}"
+          ansible_connection: winrm
+          ansible_winrm_transport: basic
+          ansible_port: 5985
+          ansible_winrm_server_cert_validation: ignore

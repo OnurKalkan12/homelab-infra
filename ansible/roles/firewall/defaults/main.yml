@@ -1,0 +1,14 @@
+---
+# Ports opened on every host that uses this role.
+# Add environment-specific ports by overriding this list in group_vars or playbook vars.
+ufw_allowed_ports:
+  - port: "22"
+    proto: tcp
+    comment: SSH
+
+# Source subnets allowed to reach this host.
+# Default covers the home LAN and all homelab VLANs.
+ufw_trusted_subnets:
+  - "192.168.1.0/24"    # home LAN (laptop)
+  - "192.168.10.0/24"   # VLAN 10 management
+  - "192.168.30.0/24"   # VLAN 30 workload

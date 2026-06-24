@@ -1,0 +1,12 @@
+---
+timezone: "Europe/Berlin"
+
+baseline_packages:
+  - curl
+  - vim
+  - htop
+  - ca-certificates
+  - gnupg
+  - apt-transport-https
+  - lsb-release
+  - unattended-upgrades

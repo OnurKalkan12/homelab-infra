@@ -1,0 +1,10 @@
+---
+galaxy_info:
+  role_name: ssh-hardening
+  author: onurkalkan
+  description: SSH hardening and fail2ban installation
+  min_ansible_version: "2.14"
+  platforms:
+    - name: Debian
+      versions:
+        - bookworm

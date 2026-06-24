@@ -1,0 +1,8 @@
+# Variables that apply to every host in the inventory.
+# Override these in a more specific group_vars file or in the host definition.
+
+timezone: "Europe/Berlin"
+
+ntp_servers:
+  - 0.debian.pool.ntp.org
+  - 1.debian.pool.ntp.org

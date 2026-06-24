@@ -1,0 +1,4 @@
+---
+nginx_server_name: "_"        # underscore = catch-all, matches any hostname
+nginx_listen_port: 80
+nginx_proxy_pass: "localhost:3000"   # overridden per environment in playbook vars

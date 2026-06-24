@@ -1,0 +1,10 @@
+---
+galaxy_info:
+  role_name: nginx
+  author: onurkalkan
+  description: Nginx reverse proxy with Jinja2 template and config validation
+  min_ansible_version: "2.14"
+  platforms:
+    - name: Debian
+      versions:
+        - bookworm

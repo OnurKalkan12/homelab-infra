@@ -1,0 +1,30 @@
+# ─── Proxmox connection ────────────────────────────────────────────────────────
+# Your Proxmox web UI address — always ends with a trailing slash
+proxmox_endpoint = "https://YOUR_PROXMOX_IP:8006/"
+
+# API token created via scripts/bootstrap.sh
+# Format: username@realm!token_name=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+proxmox_api_token = "terraform@pve!homelab=PASTE_TOKEN_SECRET_HERE"
+
+# The node name shown in the Proxmox UI top-left (usually "pve")
+proxmox_node = "pve"
+
+# ─── SSH ───────────────────────────────────────────────────────────────────────
+# Run this in WSL to get your public key: cat ~/.ssh/id_rsa.pub
+ssh_public_key = "ssh-rsa AAAAB3... your_username@your_host"
+
+# ─── Environment toggles ───────────────────────────────────────────────────────
+create_observability = true
+create_cyberark      = false
+
+# ─── Observability container ───────────────────────────────────────────────────
+observability_hostname = "obs01"
+observability_ip       = "192.168.30.10/24"
+observability_gateway  = "192.168.30.1"
+observability_cores    = 2
+observability_memory   = 3072
+observability_disk     = 30
+
+# Template name visible in Proxmox UI under local → CT Templates
+# Example: local:vztmpl/debian-12-standard_12.7-1_amd64.tar.zst
+observability_os_template = "local:vztmpl/PASTE_TEMPLATE_NAME_HERE"

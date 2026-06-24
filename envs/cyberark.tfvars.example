@@ -1,0 +1,27 @@
+# ─── Proxmox connection ────────────────────────────────────────────────────────
+proxmox_endpoint  = "https://YOUR_PROXMOX_IP:8006/"
+proxmox_api_token = "terraform@pve!homelab=PASTE_TOKEN_SECRET_HERE"
+proxmox_node      = "pve"
+
+# ─── SSH ───────────────────────────────────────────────────────────────────────
+# Not used by Windows VMs directly, but required by the root module
+ssh_public_key = "ssh-rsa AAAAB3... your_username@your_host"
+
+# ─── Environment toggles ───────────────────────────────────────────────────────
+create_observability = false
+create_cyberark      = true
+
+# ─── CyberArk VMs ──────────────────────────────────────────────────────────────
+# These IPs are set manually during Windows Server setup — not via cloud-init
+cyberark_vault_ip = "192.168.40.10/24"
+cyberark_pvwa_ip  = "192.168.40.11/24"
+cyberark_cores    = 2
+cyberark_memory   = 4096
+cyberark_disk     = 60
+
+# ISO file IDs visible in Proxmox UI under local → ISO Images
+# Upload both ISOs to Proxmox before applying this environment
+# Windows Server 2022 evaluation ISO: https://www.microsoft.com/en-us/evalcenter/
+# VirtIO drivers ISO: https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/
+windows_iso = "local:iso/PASTE_WINDOWS_ISO_NAME_HERE"
+virtio_iso  = "local:iso/virtio-win.iso"
