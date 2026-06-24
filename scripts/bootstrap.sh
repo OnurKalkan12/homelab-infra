@@ -21,7 +21,7 @@ NODE_NAME="${1:-pve}"   # pass your node name as argument if it differs from "pv
 echo ""
 echo "==> [1/4] Creating role: ${ROLE_NAME}"
 pveum role add "${ROLE_NAME}" \
-  --privs "VM.Allocate,VM.Clone,VM.Config.Disk,VM.Config.CPU,VM.Config.Memory,\
+  --privs "VM.Allocate,VM.Audit,VM.Clone,VM.Config.Disk,VM.Config.CPU,VM.Config.Memory,\
 VM.Config.Network,VM.Config.Options,VM.Config.CDROM,VM.PowerMgmt,\
 Datastore.AllocateSpace,Datastore.AllocateTemplate,Datastore.Audit,\
 Sys.Audit,Sys.Modify,SDN.Use" \
