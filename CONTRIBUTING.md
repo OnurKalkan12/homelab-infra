@@ -25,7 +25,7 @@ terraform validate
 
 **Ansible:**
 ```bash
-ansible-lint ansible/
+cd ansible && ansible-lint
 ```
 
 Both checks run automatically in CI on every PR. A PR with failing checks will not be merged.

@@ -4,4 +4,5 @@ warn_list:
   - yaml[line-length]
 
 skip_list:
-  - command-instead-of-module   # docker compose has no native Ansible module
+  - command-instead-of-module     # docker compose has no native Ansible module
+  - var-naming[no-role-prefix]    # group_vars intentionally share variable names across roles

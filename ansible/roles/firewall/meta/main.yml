@@ -3,6 +3,7 @@ galaxy_info:
   role_name: firewall
   author: onurkalkan
   description: UFW firewall — default-deny inbound with configurable allow rules
+  license: MIT
   min_ansible_version: "2.14"
   platforms:
     - name: Debian

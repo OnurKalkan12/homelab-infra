@@ -3,6 +3,7 @@ galaxy_info:
   role_name: docker
   author: onurkalkan
   description: Docker CE installation from Docker's official apt repository
+  license: MIT
   min_ansible_version: "2.14"
   platforms:
     - name: Debian

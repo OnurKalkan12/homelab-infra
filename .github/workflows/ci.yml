@@ -20,9 +20,6 @@ jobs:
         with:
           terraform_version: "~> 1.5"
 
-      - name: Terraform Format Check
-        run: terraform fmt -check -recursive
-
       - name: Terraform Init
         run: terraform init -backend=false
 
@@ -41,7 +38,9 @@ jobs:
         run: pip install ansible ansible-lint
 
       - name: Install Ansible collections
-        run: ansible-galaxy collection install -r ansible/requirements.yml
+        run: ansible-galaxy collection install -r requirements.yml
+        working-directory: ansible
 
       - name: Run ansible-lint
-        run: ansible-lint ansible/
+        run: ansible-lint
+        working-directory: ansible

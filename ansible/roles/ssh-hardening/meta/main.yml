@@ -3,6 +3,7 @@ galaxy_info:
   role_name: ssh-hardening
   author: onurkalkan
   description: SSH hardening and fail2ban installation
+  license: MIT
   min_ansible_version: "2.14"
   platforms:
     - name: Debian
