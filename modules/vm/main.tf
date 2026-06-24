@@ -24,16 +24,11 @@ resource "proxmox_virtual_environment_vm" "ca_vault" {
     file_format  = "raw"
   }
 
-  # Windows Server 2022 installation ISO
+  # Windows Server 2022 installation ISO.
+  # VirtIO drivers ISO: attach manually via Proxmox UI (ide3) before starting.
   cdrom {
     file_id   = var.windows_iso
     interface = "ide2"
-  }
-
-  # VirtIO drivers — load during Windows setup for network and disk performance
-  cdrom {
-    file_id   = var.virtio_iso
-    interface = "ide3"
   }
 
   network_device {
@@ -75,11 +70,6 @@ resource "proxmox_virtual_environment_vm" "ca_pvwa" {
   cdrom {
     file_id   = var.windows_iso
     interface = "ide2"
-  }
-
-  cdrom {
-    file_id   = var.virtio_iso
-    interface = "ide3"
   }
 
   network_device {
