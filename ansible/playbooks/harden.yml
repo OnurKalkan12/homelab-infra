@@ -9,5 +9,5 @@
   become: true
 
   roles:
-    - role: ssh-hardening
+    - role: ssh_hardening
     - role: firewall

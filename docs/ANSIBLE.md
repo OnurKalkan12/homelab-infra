@@ -31,13 +31,13 @@ ansible/
       cyberark.yml               ← variables specific to CyberArk hosts
   roles/
     common/                      ← base setup: packages, timezone, motd
-    ssh-hardening/               ← SSH config, 2FA, fail2ban
+    ssh_hardening/               ← SSH config, 2FA, fail2ban
     firewall/                    ← UFW rules
     docker/                      ← Docker CE installation
     nginx/                       ← Nginx reverse proxy
   playbooks/
     observability.yml            ← applies common + docker roles to observability LXC
-    harden.yml                   ← applies ssh-hardening + firewall to any host
+    harden.yml                   ← applies ssh_hardening + firewall to any host
     cyberark-prep.yml            ← Windows prerequisites for CyberArk VMs
 ```
 
@@ -89,7 +89,7 @@ roles/common/
 ### common
 Runs on every Linux host. Sets the timezone, installs baseline packages (curl, vim, htop, unattended-upgrades), and writes a login banner (MOTD) to the machine.
 
-### ssh-hardening
+### ssh_hardening
 Tightens SSH configuration: disables root login, disables password authentication (key-only), sets an idle timeout, and installs fail2ban to block brute-force attempts.
 
 ### firewall

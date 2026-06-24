@@ -1,6 +1,6 @@
 ---
 galaxy_info:
-  role_name: ssh-hardening
+  role_name: ssh_hardening
   author: onurkalkan
   description: SSH hardening and fail2ban installation
   license: MIT
