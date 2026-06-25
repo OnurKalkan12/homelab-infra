@@ -97,6 +97,28 @@ terraform apply -var-file="envs/cyberark.tfvars"
 
 `terraform destroy` removes every resource declared in the matching `.tfvars` scope — containers, VMs, their disks. The Proxmox host and the network bridges are unaffected.
 
+## Post-Apply: Proxmox Host Configuration for Docker in Unprivileged LXC
+
+After `terraform apply` creates an LXC container, one manual step is required on the **Proxmox host** before Docker can run containers inside it. This is a Proxmox-level setting that the `bpg/proxmox` Terraform provider does not expose, so it cannot be automated through Terraform.
+
+**Why this is needed:**
+Docker's container runtime (`runc`) sets a kernel sysctl (`net.ipv4.ip_unprivileged_port_start`) when starting each nested container. In an unprivileged LXC container, the AppArmor profile applied by Proxmox blocks this by default. Without the fix, all Docker containers fail to start with a `permission denied` error.
+
+**Steps — run on the Proxmox host as root (e.g. via the Proxmox web UI Shell, or `ssh root@<proxmox-ip>`):**
+
+```bash
+# Replace 100 with the actual container ID shown in the Proxmox UI
+echo "lxc.apparmor.profile: unconfined" >> /etc/pve/lxc/100.conf
+echo "lxc.sysctl.net.ipv4.ip_unprivileged_port_start = 0" >> /etc/pve/lxc/100.conf
+pct restart 100
+```
+
+This is a one-time step per container. The settings persist in the LXC config file and survive Proxmox reboots. After the restart, run the Ansible playbook normally — Docker Compose will start cleanly.
+
+**Note:** `lxc.apparmor.profile: unconfined` removes AppArmor restrictions from the LXC container. This is acceptable in a homelab where the container is trusted. In production, a custom AppArmor profile scoped to the specific syscalls Docker needs would be preferred.
+
+---
+
 ## Installing Terraform on WSL
 
 ```bash

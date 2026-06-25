@@ -41,7 +41,8 @@
 
             - job_name: node-exporter
               static_configs:
-                - targets: ["localhost:9100"]
+                - targets: ["node-exporter:9100"]
+      notify: Restart prometheus
 
     - name: Write Docker Compose stack
       ansible.builtin.copy:
@@ -106,3 +107,10 @@
     - name: Show access URL
       ansible.builtin.debug:
         msg: "Grafana is available at http://{{ ansible_host }} — login: admin / admin"
+
+  handlers:
+    - name: Restart prometheus
+      ansible.builtin.command:
+        cmd: docker compose restart prometheus
+        chdir: "{{ observability_dir }}"
+      changed_when: true
