@@ -18,7 +18,6 @@
     owner: root
     group: root
     mode: "0644"
-    validate: nginx -t -c /etc/nginx/nginx.conf
   notify: Reload nginx
 
 - name: Enable and start nginx
